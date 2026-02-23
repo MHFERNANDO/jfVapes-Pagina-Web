@@ -1,0 +1,1003 @@
+
+:root {
+    --vape-blue: #2a52be;
+    --vape-purple: #bd5ae5;
+    --vape-white: #ffffff;
+    --accent-neon: #00f2ff; /* Nuevo color Cian Neón para botones y detalles */
+    --header-bg: #000000;
+    --dark-bg: #1a1a3a;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    background: linear-gradient(135deg, var(--vape-blue), var(--vape-purple));
+    background-attachment: fixed;
+    color: var(--vape-white);
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* 2. NAVEGACIÓN (NAVBAR) */
+.main-nav {
+    background: var(--header-bg);
+    padding: 10px 5%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 2px solid var(--vape-purple);
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.nav-logo img { height: 50px; cursor: pointer; }
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.nav-links a:hover, .nav-links a.active { color: var(--accent-neon); }
+
+.search-box {
+    display: flex;
+    background: white;
+    border-radius: 20px;
+    padding: 5px 15px;
+    align-items: center;
+    border: 2px solid var(--accent-neon);
+    position: relative;
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    padding: 5px;
+    width: 150px;
+    color: #333;
+}
+
+.search-box button { background: none; border: none; cursor: pointer; }
+
+/* 3. HERO SECTION (EXPANDIDO) */
+.hero-full {
+    height: 80vh;
+    width: 100%;
+    background: url('../assets/fondo.jpg') no-repeat center center;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0.3));
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    padding: 0 10%;
+    z-index: 1;
+}
+
+.hero-content { z-index: 2; max-width: 700px; }
+
+.hero-content h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    color: white;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    line-height: 1.1;
+}
+
+.neon-text {
+    color: var(--accent-neon);
+    text-shadow: 0 0 15px rgba(0, 242, 255, 0.7);
+}
+
+.badge-new {
+    background: var(--accent-neon);
+    color: black;
+    padding: 6px 15px;
+    font-weight: bold;
+    border-radius: 5px;
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 0.8rem;
+    animation: pulse 2s infinite;
+}
+
+.hero-btns { display: flex; gap: 15px; margin-top: 25px; }
+
+.btn-primary {
+    background: var(--accent-neon);
+    color: black;
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-secondary {
+    border: 2px solid white;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-primary:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(0, 242, 255, 0.5); }
+
+/* 4. TIENDA Y PRODUCTOS */
+.shop-section { padding: 50px 0; }
+#productos { scroll-margin-top: 100px; }
+
+.store-title {
+    color: var(--accent-neon);
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 40px;
+}
+
+.slider-wrapper { position: relative; width: 100%; display: flex; align-items: center; }
+
+.container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 20px;
+    padding: 20px 5%;
+    scrollbar-width: none;
+}
+.container::-webkit-scrollbar { display: none; }
+
+.product-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 20px;
+    min-width: 280px;
+    scroll-snap-align: center;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.product-card:hover { transform: translateY(-10px); border-color: var(--accent-neon); }
+
+.img-container { background: #fff; border-radius: 15px; padding: 15px; margin-bottom: 15px; }
+.product-img { width: 100%; max-height: 220px; object-fit: contain; }
+
+.price { color: var(--accent-neon); font-size: 1.6rem; font-weight: bold; margin: 15px 0; }
+
+.btn-buy {
+    background: var(--dark-bg);
+    color: white;
+    border: 1px solid var(--accent-neon);
+    padding: 14px;
+    border-radius: 30px;
+    width: 100%;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.btn-buy:hover { background: var(--accent-neon); color: black; }
+
+/* 5. OTROS ELEMENTOS (FILTROS, FEATURES, DROPDOWN) */
+.category-filters { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+
+.filter-btn {
+    background: transparent;
+    border: 1px solid var(--vape-purple);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.filter-btn.active, .filter-btn:hover {
+    background: var(--accent-neon);
+    color: black;
+    border-color: var(--accent-neon);
+}
+
+.search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--dark-bg);
+    border: 2px solid var(--accent-neon);
+    border-radius: 0 0 15px 15px;
+    max-height: 350px;
+    overflow-y: auto;
+    display: none;
+    z-index: 2000;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 40px 5%;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.feature-card {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+}
+
+/* 6. ANIMACIONES Y RESPONSIVE */
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 242, 255, 0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(0, 242, 255, 0); }
+    100% { transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hero-content { text-align: center; }
+    .hero-overlay { justify-content: center; padding: 0 20px; }
+    .hero-btns { flex-direction: column; }
+    .hero-content h1 { font-size: 2.5rem; }
+}
+
+footer { text-align: center; padding: 40px; background: rgba(0, 0, 0, 0.5); }
+
+/* 1. CONFIGURACIÓN Y VARIABLES */
+:root {
+    --vape-blue: #2a52be;
+    --vape-purple: #bd5ae5;
+    --vape-white: #ffffff;
+    --accent-neon: #00f2ff; /* Nuevo color Cian Neón para botones y detalles */
+    --header-bg: #000000;
+    --dark-bg: #1a1a3a;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    background: linear-gradient(135deg, var(--vape-blue), var(--vape-purple));
+    background-attachment: fixed;
+    color: var(--vape-white);
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* 2. NAVEGACIÓN (NAVBAR) */
+.main-nav {
+    background: var(--header-bg);
+    padding: 10px 5%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 2px solid var(--vape-purple);
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.nav-logo img { height: 50px; cursor: pointer; }
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.nav-links a:hover, .nav-links a.active { color: var(--accent-neon); }
+
+.search-box {
+    display: flex;
+    background: white;
+    border-radius: 20px;
+    padding: 5px 15px;
+    align-items: center;
+    border: 2px solid var(--accent-neon);
+    position: relative;
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    padding: 5px;
+    width: 150px;
+    color: #333;
+}
+
+.search-box button { background: none; border: none; cursor: pointer; }
+
+/* 3. HERO SECTION (EXPANDIDO) */
+.hero-full {
+    height: 80vh;
+    width: 100%;
+    background: url('../assets/fondo.jpg') no-repeat center center;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0.3));
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    padding: 0 10%;
+    z-index: 1;
+}
+
+.hero-content { z-index: 2; max-width: 700px; }
+
+.hero-content h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    color: white;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    line-height: 1.1;
+}
+
+.neon-text {
+    color: var(--accent-neon);
+    text-shadow: 0 0 15px rgba(0, 242, 255, 0.7);
+}
+
+.badge-new {
+    background: var(--accent-neon);
+    color: black;
+    padding: 6px 15px;
+    font-weight: bold;
+    border-radius: 5px;
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 0.8rem;
+    animation: pulse 2s infinite;
+}
+
+.hero-btns { display: flex; gap: 15px; margin-top: 25px; }
+
+.btn-primary {
+    background: var(--accent-neon);
+    color: black;
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-secondary {
+    border: 2px solid white;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-primary:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(0, 242, 255, 0.5); }
+
+/* 4. TIENDA Y PRODUCTOS */
+.shop-section { padding: 50px 0; }
+#productos { scroll-margin-top: 100px; }
+
+.store-title {
+    color: var(--accent-neon);
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 40px;
+}
+
+.slider-wrapper { position: relative; width: 100%; display: flex; align-items: center; }
+
+.container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 20px;
+    padding: 20px 5%;
+    scrollbar-width: none;
+}
+.container::-webkit-scrollbar { display: none; }
+
+.product-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 20px;
+    min-width: 280px;
+    scroll-snap-align: center;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.product-card:hover { transform: translateY(-10px); border-color: var(--accent-neon); }
+
+.img-container { background: #fff; border-radius: 15px; padding: 15px; margin-bottom: 15px; }
+.product-img { width: 100%; max-height: 220px; object-fit: contain; }
+
+.price { color: var(--accent-neon); font-size: 1.6rem; font-weight: bold; margin: 15px 0; }
+
+.btn-buy {
+    background: var(--dark-bg);
+    color: white;
+    border: 1px solid var(--accent-neon);
+    padding: 14px;
+    border-radius: 30px;
+    width: 100%;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.btn-buy:hover { background: var(--accent-neon); color: black; }
+
+/* 5. OTROS ELEMENTOS (FILTROS, FEATURES, DROPDOWN) */
+.category-filters { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+
+.filter-btn {
+    background: transparent;
+    border: 1px solid var(--vape-purple);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.filter-btn.active, .filter-btn:hover {
+    background: var(--accent-neon);
+    color: black;
+    border-color: var(--accent-neon);
+}
+
+.search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--dark-bg);
+    border: 2px solid var(--accent-neon);
+    border-radius: 0 0 15px 15px;
+    max-height: 350px;
+    overflow-y: auto;
+    display: none;
+    z-index: 2000;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 40px 5%;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.feature-card {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+}
+
+/* 6. ANIMACIONES Y RESPONSIVE */
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 242, 255, 0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(0, 242, 255, 0); }
+    100% { transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hero-content { text-align: center; }
+    .hero-overlay { justify-content: center; padding: 0 20px; }
+    .hero-btns { flex-direction: column; }
+    .hero-content h1 { font-size: 2.5rem; }
+}
+
+footer { text-align: center; padding: 40px; background: rgba(0, 0, 0, 0.5); }
+
+/* --- ACTUALIZACIÓN DE COLORES BUSCADOR --- */
+
+.search-box {
+    border: 2px solid var(--accent-neon); /* Borde azul neón */
+}
+
+.search-dropdown {
+    background: #0a0a1a; 
+    border: 2px solid var(--accent-neon);
+    border-top: none;
+    box-shadow: 0 10px 20px rgba(0, 242, 255, 0.2);
+}
+
+/* Título de resultados en el buscador */
+.search-dropdown h3, 
+.search-dropdown .search-title,
+.search-dropdown b {
+    color: var(--accent-neon) !important;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+/* Precios dentro del buscador */
+.search-item-info .search-price {
+    color: var(--accent-neon) !important;
+    font-weight: bold;
+}
+
+/* Precios en las tarjetas de la tienda */
+.price {
+    color: var(--accent-neon) !important;
+    text-shadow: 0 0 8px rgba(0, 242, 255, 0.3);
+}
+
+/* Badge de "Nuevos Ingresos" */
+.badge-new {
+    background: var(--accent-neon);
+    color: black;
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
+}
+
+/* Contador del carrito y otros detalles */
+.cart-count {
+    background: var(--accent-neon);
+    color: black;
+}
+
+/* Título de la tienda */
+.store-title {
+    color: var(--accent-neon);
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+}
+
+/* --- DISEÑO PREMIUM PARA EL DROPDOWN --- */
+
+.search-dropdown {
+    background: rgba(10, 10, 26, 0.95) !important; /* Fondo semitransparente */
+    backdrop-filter: blur(12px) !important; /* Efecto desenfoque fondo */
+    border: 1px solid rgba(0, 242, 255, 0.3) !important;
+    border-radius: 0 0 20px 20px !important;
+    padding: 10px !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 242, 255, 0.1) !important;
+}
+
+.dropdown-header {
+    padding: 12px 15px;
+    color: var(--accent-neon);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    opacity: 0.8;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.search-item {
+    display: flex;
+    align-items: center;
+    padding: 12px !important;
+    margin: 5px 0;
+    border-radius: 12px !important;
+    border: 1px solid transparent !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer;
+}
+
+.search-item:hover {
+    background: rgba(0, 242, 255, 0.08) !important;
+    border-color: rgba(0, 242, 255, 0.4) !important;
+    transform: translateX(5px);
+}
+
+/* Tarjeta de la imagen dentro del buscador */
+.search-img-card {
+    width: 50px;
+    height: 50px;
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    margin-right: 15px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.search-img-card img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.search-item-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.search-name {
+    color: white !important;
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+}
+
+.search-price {
+    color: var(--accent-neon) !important;
+    font-size: 0.85rem !important;
+    font-weight: 700 !important;
+    margin-top: 2px;
+}
+
+.search-arrow {
+    color: var(--accent-neon);
+    font-size: 1.2rem;
+    opacity: 0;
+    transition: 0.3s;
+    margin-left: 10px;
+}
+
+.search-item:hover .search-arrow {
+    opacity: 1;
+    transform: translateX(3px);
+}
+/* SOLUCIÓN RESPONSIVE UNIVERSAL (Móviles y Tablets)*/
+
+/* 1. Ajuste del Contenedor de Productos (Slider) */
+.container {
+    display: grid !important; /* Cambiamos a Grid para mejor control */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 20px;
+    padding: 20px 5% !important;
+    overflow-x: hidden !important; /* Eliminamos el scroll horizontal en móvil si prefieres cuadrícula */
+}
+
+/* Si prefieres mantener el SLIDER horizontal en móviles, usa este en lugar del anterior: */
+@media (max-width: 768px) {
+    .container {
+        display: flex !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 15px;
+        padding: 20px !important;
+    }
+    
+    .product-card {
+        min-width: 85vw !important; /* Casi todo el ancho de la pantalla */
+        scroll-snap-align: center;
+    }
+
+    /* Ocultamos las flechas en móvil porque se usa el dedo */
+    .nav-btn {
+        display: none !important;
+    }
+}
+
+/* 2. Ajuste del Header (Hero Section) */
+@media (max-width: 768px) {
+    .hero-full {
+        height: auto !important;
+        min-height: 90vh;
+        padding: 100px 0 50px 0;
+    }
+
+    .hero-overlay {
+        padding: 0 20px !important;
+        justify-content: center !important;
+        text-align: center !important;
+        background: rgba(0, 0, 0, 0.7) !important; /* Más oscuro en móvil para leer mejor */
+    }
+
+    .hero-content h1 {
+        font-size: 2.2rem !important; /* Título más pequeño para que no se corte */
+    }
+
+    .hero-btns {
+        flex-direction: column !important; /* Botones uno sobre otro */
+        width: 100%;
+        gap: 10px;
+    }
+
+    .btn-primary, .btn-secondary {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* 3. Ajuste del Navbar y Buscador en Móvil */
+@media (max-width: 480px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .search-box {
+        width: 100% !important;
+    }
+
+    .search-box input {
+        width: 100% !important;
+    }
+
+    .search-dropdown {
+        width: 100% !important;
+        position: fixed !important; /* Pantalla completa para buscar mejor */
+        top: 60px;
+        left: 0;
+        height: calc(100vh - 60px);
+        border-radius: 0 !important;
+    }
+}
+
+/* 4. Imágenes Adaptables */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* --- NAVBAR RESPONSIVE CORREGIDO --- */
+
+.mobile-menu-btn {
+    display: none; /* Oculto en PC */
+    background: none;
+    border: none;
+    color: var(--accent-neon);
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+/* --- AJUSTES PARA MÓVIL (Menú Desplegable) --- */
+@media (max-width: 992px) {
+    .mobile-menu-btn {
+        display: block; /* Aparece en móvil */
+        order: 1;
+    }
+
+    .nav-logo { order: 2; }
+    .nav-actions { order: 3; }
+
+    .nav-links {
+        display: none; /* Se oculta por defecto */
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(10, 10, 26, 0.98);
+        padding: 20px;
+        border-bottom: 2px solid var(--accent-neon);
+        text-align: center;
+        z-index: 999;
+    }
+
+    /* Clase que activaremos con JS */
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links a {
+        font-size: 1.2rem;
+        padding: 15px;
+        border-bottom: 1px solid rgba(0, 242, 255, 0.1);
+    }
+    
+    .search-box {
+        width: 150px; /* Un poco más pequeño en móvil para que quepa el logo */
+    }
+}
+/* --- DROPDOWN RESPONSIVE --- */
+
+@media (max-width: 768px) {
+    .search-dropdown {
+        position: fixed !important; /* Se despega de la caja de búsqueda */
+        top: 70px !important; /* Justo debajo del navbar */
+        left: 10px !important;
+        right: 10px !important;
+        width: auto !important; /* Ocupa casi todo el ancho */
+        max-height: 80vh !important; /* Que no se pase del alto de la pantalla */
+        border-radius: 20px !important; /* Bordes redondeados más bonitos */
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.9) !important;
+        z-index: 999999 !important;
+    }
+
+    /* Hacemos los items un poco más grandes para que sean fáciles de tocar */
+    .search-item {
+        padding: 15px !important;
+        margin-bottom: 8px !important;
+        background: rgba(255, 255, 255, 0.03) !important;
+    }
+
+    .search-img-card {
+        width: 60px !important; /* Imágenes un poco más grandes en móvil */
+        height: 60px !important;
+    }
+
+    .search-name {
+        font-size: 1.1rem !important; /* Texto más legible */
+    }
+}
+
+/* --- AJUSTE POSICIÓN DROPDOWN MÓVIL --- */
+@media (max-width: 768px) {
+    .search-dropdown {
+        position: fixed !important;
+        /* Ajusta este valor (80px o 90px) según el alto de tu barra negra */
+        top: 85px !important; 
+        left: 10px !important;
+        right: 10px !important;
+        width: auto !important;
+        height: auto !important;
+        max-height: 70vh !important;
+        /* Aseguramos que no tape el input */
+        z-index: 9999 !important; 
+        border-radius: 15px !important;
+        background: rgba(10, 10, 26, 0.98) !important;
+    }
+
+    /* Opcional: bajar un poco el z-index del navbar para que el input respire */
+    .main-nav {
+        z-index: 10000 !important; 
+    }
+}
+/* --- SOLUCIÓN DEFINITIVA DROPDOWN POSICIÓN --- */
+
+.search-box {
+    position: relative; /* Esto es vital para que el hijo se alinee con el padre */
+    display: flex;
+    align-items: center;
+}
+
+.search-dropdown {
+    position: absolute !important; /* Cambiamos fixed por absolute */
+    top: calc(100% + 5px) !important; /* Se coloca al 100% de la altura del buscador + 5px de espacio */
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important; /* Mismo ancho que la barrita de búsqueda */
+    min-width: 280px; /* Pero con un mínimo para que no sea muy flaco */
+    background: rgba(10, 10, 26, 0.98) !important;
+    border: 2px solid var(--accent-neon) !important;
+    border-radius: 15px !important;
+    z-index: 999999 !important;
+    display: none; /* Se controla con JS */
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Ajuste específico para móviles */
+@media (max-width: 768px) {
+    .search-dropdown {
+        /* En móvil lo movemos un poco a la izquierda si el buscador está muy a la derecha */
+        right: 0 !important;
+        left: auto !important; 
+        width: 90vw !important; /* 90% del ancho de la pantalla */
+        max-width: 320px;
+        top: calc(100% + 10px) !important;
+    }
+    
+    /* Aseguramos que el buscador no se mueva de su sitio */
+    .nav-actions {
+        position: static !important;
+    }
+}
+/* --- FIX SLIDER: FILA ÚNICA --- */
+.container {
+    display: flex !important; /* Volvemos a flex para el slider */
+    flex-wrap: nowrap !important; /* Prohibido saltar de línea */
+    overflow-x: auto !important; /* Permite scroll manual/táctil */
+    scroll-snap-type: x mandatory;
+    gap: 20px;
+    padding: 20px 5% !important;
+    scrollbar-width: none; /* Oculta scrollbar en Firefox */
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+}
+
+.container::-webkit-scrollbar {
+    display: none; /* Oculta scrollbar en Chrome/Safari */
+}
+
+.product-card {
+    min-width: 280px; /* Ancho fijo para que el slider tenga qué desplazar */
+    scroll-snap-align: center;
+    flex-shrink: 0; /* Evita que las tarjetas se encojan */
+}
+.slider-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 242, 255, 0.2);
+    border: 1px solid var(--accent-neon);
+    color: white;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.nav-btn:hover {
+    background: var(--accent-neon);
+    color: black;
+}
+
+.nav-btn.prev { left: 10px; }
+.nav-btn.next { right: 10px; }
+
+.nav-btn svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+/* En móviles ocultamos las flechas porque se usa el dedo */
+@media (max-width: 768px) {
+    .nav-btn { display: none; }
+}
+.search-box {
+    position: relative; /* Padre relativo */
+}
+
+.search-dropdown {
+    position: absolute !important;
+    top: 100% !important; /* Justo abajo del input */
+    left: 0;
+    width: 100%;
+    margin-top: 10px; /* Espacio para que no lo toque */
+    z-index: 9999;
+}

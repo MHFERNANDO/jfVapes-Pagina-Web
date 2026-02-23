@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles | JF VAPES</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root {
+            --accent-neon: #00f2ff;
+        }
+
+        body {
+            background: linear-gradient(135deg, #2a52be, #bd5ae5);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: white;
+        }
+
+        .detail-wrapper { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 30px; 
+            padding: 40px 10%; 
+            max-width: 1200px; 
+            margin: auto; 
+        }
+
+        .detail-image { 
+            flex: 1; 
+            min-width: 300px; 
+            background: white; 
+            border-radius: 20px; 
+            padding: 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .detail-image img { width: 100%; max-height: 400px; object-fit: contain; }
+
+        .detail-info { flex: 1.2; min-width: 300px; text-align: left; }
+
+        .detail-price { 
+            font-size: 2.8rem; 
+            color: var(--accent-neon); 
+            font-weight: bold; 
+            margin: 15px 0; 
+            text-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+        }
+
+        .flavor-picker { 
+            width: 100%; 
+            padding: 15px; 
+            background: rgba(0, 0, 0, 0.3); 
+            border: 2px solid var(--accent-neon); 
+            color: white; 
+            border-radius: 10px; 
+            margin: 15px 0; 
+            font-size: 1rem; 
+        }
+
+        .spec-list { list-style: none; margin: 20px 0; padding: 0; }
+        .spec-list li { margin: 12px 0; display: flex; align-items: center; font-size: 1.1rem; }
+        .spec-list li::before { content: "⚡"; color: var(--accent-neon); margin-right: 10px; }
+
+        .btn-buy {
+            background: var(--accent-neon);
+            color: black;
+            border: none;
+            padding: 18px 30px;
+            border-radius: 50px;
+            width: 100%;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        .btn-buy:hover { transform: scale(1.02); box-shadow: 0 0 25px rgba(0, 242, 255, 0.6); }
+
+        /* Estilos del buscador heredados para que no se rompa */
+        .search-box { position: relative; }
+        .search-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 10, 26, 0.98);
+            border: 1px solid var(--accent-neon);
+            border-radius: 10px;
+            z-index: 1000;
+            display: none;
+        }
+
+        @media (max-width: 768px) { 
+            .detail-wrapper { padding: 20px 5%; } 
+            .detail-info { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/logo.png" alt="JF Vapes" onclick="window.location.href='main.html'" style="cursor:pointer">
+            </div>
+            
+            <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+
+            <div class="nav-links" id="navLinks">
+                <a href="main.html">Inicio</a>
+                <a href="main.html#productos">Productos</a>
+                <a href="https://wa.me/593969830010?text=Hola%20JF%20VAPES!%20Deseo%20m%C3%A1s%20informaci%C3%B3n" target="_blank">Contacto</a>
+            </div>
+
+            <div class="nav-actions">
+                <div class="search-box">
+                    <input type="text" id="vapeSearch" placeholder="Buscar..." onkeyup="buscarVape()">
+                    <button>🔍</button>
+                    <div id="search-results" class="search-dropdown"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="detail-wrapper">
+        <div class="detail-image"><img id="p-img" src=""></div>
+        <div class="detail-info">
+            <h1 id="p-name">Cargando...</h1>
+            <p style="opacity: 0.8; color: var(--accent-neon);">Envíos en Cuenca-Ecuador 🇪🇨</p>
+            <div class="detail-price" id="p-price"></div>
+            
+            <h3>Elige tu Sabor:</h3>
+            <select class="flavor-picker" id="p-flavors"></select>
+
+            <h3>Características:</h3>
+            <ul class="spec-list" id="p-specs"></ul>
+
+            <button class="btn-buy" onclick="pedirPorWsp()">Realizar Pedido por WhatsApp</button>
+        </div>
+    </div>
+
+    <section class="features-grid" id="contacto">
+        <div class="feature-card">
+            <span>🚚</span>
+            <h3>Envíos Rápidos</h3>
+            <p>Entregas personalizadas en todo Cuenca el mismo día.</p>
+        </div>
+        <div class="feature-card">
+            <span>💎</span>
+            <h3>Calidad Garantizada</h3>
+            <p>Equipos 100% originales.</p>
+        </div>
+        <div class="feature-card">
+            <span>📱</span>
+            <h3>Atención 24/7</h3>
+            <p>WhatsApp: 0969830010</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>Entregas en Cuenca | Contacto: 0969830010 - 0983113942</p>
+    </footer>
+
+    <script>
+        // Catálogo actualizado con LOST MARY
+        const catalogo = {
+    'czar': { 
+        nombre: 'CZAR 9000', 
+        precio: '$9.99', 
+        img: 'assets/czar.png', 
+        specs: ['9000 puffs', 'Nicotina 5%', 'Pantalla HD', 'Batería 750mAh'], 
+        sabores: ['Watermelon ice', 'Strawberry kiwi', 'Pineapple orange mango', 'Iceberg'] 
+    },
+    'fume': { 
+        nombre: 'FUME Nicky Jam 10K', 
+        precio: '$9.99', 
+        img: 'assets/FumeNickyJam.png', 
+        specs: ['10000 puffs', 'Nicotina 5%', 'Pantalla Led', 'Batería 650mAh'], 
+        sabores: ['Cangre bear', 'Ojos Rojos', 'Fantasia fume'] 
+    },
+    'snoopy': { 
+        nombre: 'Snoopysmoke 15K', 
+        precio: '$11.99', 
+        img: 'assets/SnoopySmoke.png', 
+        specs: ['15000 puffs', 'Doble Tanque', 'Nicotina 5%', 'Batería 750mAh'], 
+        sabores: ['Peach melon ice', 'Cherry Coke Ice', 'Lush Ice', 'Bahama mamá'] 
+    },
+    'privbar': { 
+        nombre: 'Priv Bar 15K', 
+        precio: '$11.99', 
+        img: 'assets/privbar.png', 
+        specs: ['15000 puffs', 'Nicotina 5%', 'Pantalla HD', 'Batería 750mAh'], 
+        sabores: ['Stock agotado por el momento'] 
+    },
+    'lostmary': { 
+        nombre: 'Lost Mary Mo 5K', 
+        precio: '$7.99', 
+        img: 'assets/lostmary.png', 
+        specs: ['5000 puffs', 'Diseño Ergonómico', 'Nicotina 5%', 'Bateria 650mAh'], 
+        sabores: ['Gammi', 'Black Berryy Cherry', 'Kiwi Dragon Fruit'] 
+    }
+};
+
+        const params = new URLSearchParams(window.location.search);
+        const prodId = params.get('v');
+        const prod = catalogo[prodId];
+
+        if(prod) {
+            document.getElementById('p-name').innerText = prod.nombre;
+            document.getElementById('p-price').innerText = prod.precio;
+            document.getElementById('p-img').src = prod.img;
+            
+            const flavorsSelect = document.getElementById('p-flavors');
+            flavorsSelect.innerHTML = "";
+            prod.sabores.forEach(s => { 
+                let o = document.createElement('option'); 
+                o.value=s; o.innerText=s; 
+                flavorsSelect.appendChild(o); 
+            });
+
+            const specsList = document.getElementById('p-specs');
+            specsList.innerHTML = "";
+            prod.specs.forEach(s => { 
+                let l = document.createElement('li'); 
+                l.innerText=s; 
+                specsList.appendChild(l); 
+            });
+        }
+
+        function pedirPorWsp() {
+            const sabor = document.getElementById('p-flavors').value;
+            const mensaje = encodeURIComponent(`Hola JF VAPES! Quiero el ${prod.nombre} en sabor ${sabor}`);
+            window.open(`https://wa.me/593969830010?text=${mensaje}`);
+        }
+
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>
