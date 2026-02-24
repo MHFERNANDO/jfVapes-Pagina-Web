@@ -47,12 +47,11 @@
     </div>
 </header>
 
-    <br>
-    <div class="category-filters" id="productos">
+    <br><div class="category-filters" id="productos">
         <button class="filter-btn active" onclick="filtrar('todos')">Todos</button>
-        <button class="filter-btn" onclick="filtrar('10k')">10K Puffs</button>
-        <button class="filter-btn" onclick="filtrar('15k')">15K Puffs</button>
-        <button class="filter-btn" onclick="filtrar('30k')">Más Potentes</button>
+        <button class="filter-btn" onclick="filtrar('5k')">5K Puffs</button>
+        <button class="filter-btn" onclick="filtrar('10k')">9K - 10K Puffs</button>
+        <button class="filter-btn" onclick="filtrar('15k')">Más Potentes (15K)</button>
     </div>
 
     <div class="shop-section" >
@@ -133,9 +132,88 @@
                 <p>Escríbenos y te asesoramos con tu sabor ideal.</p>
             </div>
         </section>
-    <footer>
-        <p>Entregas en Cuenca | Contacto: 0969830010 - 0983113942</p>
-    </footer>
+
+    <section class="faq-section">
+        <h2 class="faq-title">Preguntas Frecuentes</h2>
+        
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    ¿Qué productos venden?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Vendemos vapes desechables de las mejores marcas como CZAR, FUME, Lost Mary y más, con diferentes capacidades de puffs.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    ¿Hacen envíos a todo el Ecuador?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Por el momento realizamos entregas únicamente en Cuenca.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    ¿Qué métodos de pago aceptan?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Aceptamos efectivo, transferencia bancaria (Pichincha, Cooperativa JEP) y pagos mediante deuna!</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFAQ(this)">
+                    ¿Es vapear peor que fumar?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Nuestros productos son alternativas para adultos. Recomendamos informarse sobre el uso responsable de dispositivos con nicotina.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <h2 class="footer-title">JF VAPES CUENCA</h2>
+            <p>Tu destino premium para equipos y sabores exclusivos. Calidad garantizada en cada calada para la comunidad de Cuenca.</p>
+        </div>
+
+        <div class="footer-col">
+            <h2 class="footer-title">SÍGUENOS</h2>
+            <div class="social-links-row">
+                <a href="https://www.instagram.com/jf_vape.ec" target="_blank" class="insta-button">
+                    <span class="insta-icon">📸</span> @jf_vape.ec
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-col contact-info">
+            <h2 class="footer-title">CONTACTO</h2>
+            <div class="contact-item">
+                <span>📞</span> 0969830010
+            </div>
+            <div class="contact-item">
+                <span>📞</span> 0983113942
+            </div>
+            <div class="contact-item">
+                <span>📍</span> Cuenca, Ecuador
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-legal">
+        <p>Copyright © 2026 JF Vapes. Todos los derechos reservados</p>
+    </div>
+</footer>
 
     <script src="js/script.js"></script>
 </body>

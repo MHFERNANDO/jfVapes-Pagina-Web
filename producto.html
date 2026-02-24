@@ -2,119 +2,106 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Detalles | JF VAPES</title>
     <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="css/style.css">
     <style>
-        :root {
-            --accent-neon: #00f2ff;
+        /* Estilos específicos para la zona de contenido de detalles */
+        .detail-wrapper {
+            padding: 40px 5%;
+            max-width: 1200px;
+            margin: auto;
         }
 
-        body {
-            background: linear-gradient(135deg, #2a52be, #bd5ae5);
-            background-attachment: fixed;
-            min-height: 100vh;
-            color: white;
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
         }
 
-        .detail-wrapper { 
-            display: flex; 
-            flex-wrap: wrap; 
-            gap: 30px; 
-            padding: 40px 10%; 
-            max-width: 1200px; 
-            margin: auto; 
-        }
-
-        .detail-image { 
-            flex: 1; 
-            min-width: 300px; 
-            background: white; 
-            border-radius: 20px; 
-            padding: 20px; 
-            display: flex; 
-            align-items: center; 
+        /* Reutilizamos tu estilo de img-container del inicio */
+        .detail-image-box {
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            display: flex;
             justify-content: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
 
-        .detail-image img { width: 100%; max-height: 400px; object-fit: contain; }
-
-        .detail-info { flex: 1.2; min-width: 300px; text-align: left; }
-
-        .detail-price { 
-            font-size: 2.8rem; 
-            color: var(--accent-neon); 
-            font-weight: bold; 
-            margin: 15px 0; 
-            text-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+        .detail-image-box img {
+            max-width: 100%;
+            max-height: 450px;
+            object-fit: contain;
         }
 
-        .flavor-picker { 
-            width: 100%; 
-            padding: 15px; 
-            background: rgba(0, 0, 0, 0.3); 
-            border: 2px solid var(--accent-neon); 
-            color: white; 
-            border-radius: 10px; 
-            margin: 15px 0; 
-            font-size: 1rem; 
+        .detail-info {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
         }
 
-        .spec-list { list-style: none; margin: 20px 0; padding: 0; }
-        .spec-list li { margin: 12px 0; display: flex; align-items: center; font-size: 1.1rem; }
-        .spec-list li::before { content: "⚡"; color: var(--accent-neon); margin-right: 10px; }
+        .detail-info h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--vape-white);
+        }
 
-        .btn-buy {
-            background: var(--accent-neon);
-            color: black;
-            border: none;
-            padding: 18px 30px;
-            border-radius: 50px;
-            width: 100%;
-            font-size: 1.2rem;
+        .flavor-label {
+            display: block;
+            margin: 20px 0 10px;
             font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            text-transform: uppercase;
+            color: var(--accent-neon);
         }
 
-        .btn-buy:hover { transform: scale(1.02); box-shadow: 0 0 25px rgba(0, 242, 255, 0.6); }
-
-        /* Estilos del buscador heredados para que no se rompa */
-        .search-box { position: relative; }
-        .search-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
+        .flavor-dropdown {
             width: 100%;
-            background: rgba(10, 10, 26, 0.98);
+            padding: 15px;
+            background: var(--dark-bg);
             border: 1px solid var(--accent-neon);
-            border-radius: 10px;
-            z-index: 1000;
-            display: none;
+            color: white;
+            border-radius: 12px;
+            font-size: 1rem;
+            margin-bottom: 30px;
         }
 
-        @media (max-width: 768px) { 
-            .detail-wrapper { padding: 20px 5%; } 
-            .detail-info { text-align: center; }
+        .specs-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .specs-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: #ccc;
+        }
+
+        @media (max-width: 850px) {
+            .detail-grid { grid-template-columns: 1fr; }
+            .detail-info { padding: 25px; }
         }
     </style>
 </head>
 <body>
+
     <nav class="main-nav">
         <div class="nav-container">
             <div class="nav-logo">
-                <img src="assets/logo.png" alt="JF Vapes" onclick="window.location.href='index.html'" style="cursor:pointer">
+                <img src="assets/logo.png" alt="JF Vapes" onclick="window.location.href='index.html'">
             </div>
             
             <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
 
             <div class="nav-links" id="navLinks">
-                <a href="index.html">Inicio</a>
+                <a href="index.html" class="active">Inicio</a>
                 <a href="index.html#productos">Productos</a>
-                <a href="https://wa.me/593969830010?text=Hola%20JF%20VAPES!%20Deseo%20m%C3%A1s%20informaci%C3%B3n" target="_blank">Contacto</a>
+                <a href="https://wa.me/593969830010" target="_blank">Contacto</a>
             </div>
 
             <div class="nav-actions">
@@ -128,120 +115,124 @@
     </nav>
 
     <div class="detail-wrapper">
-        <div class="detail-image"><img id="p-img" src=""></div>
-        <div class="detail-info">
-            <h1 id="p-name">Cargando...</h1>
-            <p style="opacity: 0.8; color: var(--accent-neon);">Envíos en Cuenca-Ecuador 🇪🇨</p>
-            <div class="detail-price" id="p-price"></div>
-            
-            <h3>Elige tu Sabor:</h3>
-            <select class="flavor-picker" id="p-flavors"></select>
+        <div class="detail-grid">
+            <div class="detail-image-box">
+                <img id="p-img" src="" alt="Vape">
+            </div>
 
-            <h3>Características:</h3>
-            <ul class="spec-list" id="p-specs"></ul>
+            <div class="detail-info">
+                <div class="badge-new">✨ ORIGINAL PRODUCT</div>
+                <h1 id="p-name">Cargando...</h1>
+                <p class="price" id="p-price" style="font-size: 3rem; text-align: left;"></p>
+                
+                <ul class="specs-list" id="p-specs"></ul>
 
-            <button class="btn-buy" onclick="pedirPorWsp()">Realizar Pedido por WhatsApp</button>
+                <label class="flavor-label">SELECCIONA TU SABOR:</label>
+                <select id="p-flavors" class="flavor-dropdown"></select>
+
+                <button class="btn-buy" style="font-size: 1.2rem; padding: 20px;" onclick="pedirWsp()">
+                    PEDIR POR WHATSAPP 📲
+                </button>
+            </div>
         </div>
     </div>
 
-    <section class="features-grid" id="contacto">
-        <div class="feature-card">
-            <span>🚚</span>
-            <h3>Envíos Rápidos</h3>
-            <p>Entregas personalizadas en todo Cuenca el mismo día.</p>
-        </div>
-        <div class="feature-card">
-            <span>💎</span>
-            <h3>Calidad Garantizada</h3>
-            <p>Equipos 100% originales.</p>
-        </div>
-        <div class="feature-card">
-            <span>📱</span>
-            <h3>Atención 24/7</h3>
-            <p>WhatsApp: 0969830010</p>
+    <section style="padding: 60px 5%; background: rgba(0,0,0,0.3); margin-top: 50px;">
+        <div style="max-width: 800px; margin: auto;">
+            <h2 class="store-title" style="text-align: left;">Descripción del equipo</h2>
+            <p id="p-description" style="line-height: 1.8; color: #bbb; font-size: 1.1rem;"></p>
         </div>
     </section>
 
-    <footer>
-        <p>Entregas en Cuenca | Contacto: 0969830010 - 0983113942</p>
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h2 class="footer-title">JF VAPES CUENCA</h2>
+                <p>Tu destino premium para equipos y sabores exclusivos. Calidad garantizada en cada calada para la comunidad de Cuenca.</p>
+            </div>
+
+            <div class="footer-col">
+                <h2 class="footer-title">SÍGUENOS</h2>
+                <div class="social-links-row">
+                    <a href="https://www.instagram.com/jf_vape.ec" target="_blank" class="insta-button">
+                        <span class="insta-icon">📸</span> @jf_vape.ec
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-col contact-info">
+                <h2 class="footer-title">CONTACTO</h2>
+                <div class="contact-item"><span>📞</span> 0969830010</div>
+                <div class="contact-item"><span>📞</span> 0983113942</div>
+                <div class="contact-item"><span>📍</span> Cuenca, Ecuador</div>
+            </div>
+        </div>
+        <div class="footer-legal">
+            <p>Copyright © 2026 JF Vapes. Todos los derechos reservados</p>
+        </div>
     </footer>
 
-    <script>
-        // Catálogo actualizado con LOST MARY
+    <script src="js/script.js"></script> <script>
         const catalogo = {
-    'czar': { 
-        nombre: 'CZAR 9000', 
-        precio: '$9.99', 
-        img: 'assets/czar.png', 
-        specs: ['9000 puffs', 'Nicotina 5%', 'Pantalla HD', 'Batería 750mAh'], 
-        sabores: ['Watermelon ice', 'Strawberry kiwi', 'Pineapple orange mango', 'Iceberg'] 
-    },
-    'fume': { 
-        nombre: 'FUME Nicky Jam 10K', 
-        precio: '$9.99', 
-        img: 'assets/FumeNickyJam.png', 
-        specs: ['10000 puffs', 'Nicotina 5%', 'Pantalla Led', 'Batería 650mAh'], 
-        sabores: ['Cangre bear', 'Ojos Rojos', 'Fantasia fume'] 
-    },
-    'snoopy': { 
-        nombre: 'Snoopysmoke 15K', 
-        precio: '$11.99', 
-        img: 'assets/SnoopySmoke.png', 
-        specs: ['15000 puffs', 'Doble Tanque', 'Nicotina 5%', 'Batería 750mAh'], 
-        sabores: ['Peach melon ice', 'Cherry Coke Ice', 'Lush Ice', 'Bahama mamá'] 
-    },
-    'privbar': { 
-        nombre: 'Priv Bar 15K', 
-        precio: '$11.99', 
-        img: 'assets/privbar.png', 
-        specs: ['15000 puffs', 'Nicotina 5%', 'Pantalla HD', 'Batería 750mAh'], 
-        sabores: ['Stock agotado por el momento'] 
-    },
-    'lostmary': { 
-        nombre: 'Lost Mary Mo 5K', 
-        precio: '$7.99', 
-        img: 'assets/lostmary.png', 
-        specs: ['5000 puffs', 'Diseño Ergonómico', 'Nicotina 5%', 'Bateria 650mAh'], 
-        sabores: ['Gammi', 'Black Berryy Cherry', 'Kiwi Dragon Fruit'] 
-    }
-};
+            'czar': { 
+                nombre: 'CZAR 9000', precio: '$9.99', img: 'assets/czar.png', 
+                specs: ['⚡ 9000 inhalaciones', '⚡ Pantalla indicadora HD', '⚡ Carga Tipo-C'],
+                sabores: ['Watermelon ice', 'Strawberry kiwi', 'Iceberg'],
+                descripcion: 'El CZAR 9000 redefine la experiencia del vapeo inteligente. Su pantalla LED de alta definición te permite controlar en tiempo real el nivel de batería y líquido, brindándote total seguridad y comodidad en cada uso. Con un diseño ergonómico pensado para el día a día y un sabor uniforme desde la primera hasta la última calada, se ha convertido en una de las opciones favoritas en Cuenca.'
+            },
+            'fume': { 
+                nombre: 'FUME Nicky Jam 10K', precio: '$9.99', img: 'assets/FumeNickyJam.png', 
+                specs: ['⚡ 10000 puffs', '⚡ Edición Nicky Jam', '⚡ Flujo de aire optimizado'],
+                sabores: ['Cangre bear', 'Ojos Rojos', 'Fantasia fume'],
+                descripcion: 'Siente el ritmo con la colaboración exclusiva entre Nicky Jam y FUME. Este dispositivo combina estilo y rendimiento, ofreciendo hasta 10.000 caladas llenas de sabor intenso. Su sistema de flujo de aire optimizado garantiza inhalaciones suaves y nubes densas que elevan cada experiencia al siguiente nivel.'
+            },
+            'snoopy': { 
+                nombre: 'Snoopysmoke 15K', precio: '$11.99', img: 'assets/SnoopySmoke.png', 
+                specs: ['⚡ 15000 puffs', '⚡ Doble Tanque de líquido', '⚡ Batería de 750mAh'],
+                sabores: ['Peach melon ice', 'Cherry Coke Ice', 'Lush Ice'],
+                descripcion: '¿Buscas máxima duración? El Snoopysmoke de 15.000 caladas redefine la resistencia en dispositivos desechables. Su innovador sistema de doble tanque mantiene el líquido fresco y el sabor estable desde la primera hasta la última inhalación, evitando el molesto sabor a quemado y garantizando una experiencia constante.'
+            },
+            'privbar': { 
+                nombre: 'Priv Bar 15K', precio: '$11.99', img: 'assets/privbar.png', 
+                specs: ['⚡ 15000 puffs', '⚡ Modo Turbo Boost', '⚡ Pantalla Completa'],
+                sabores: ['Blue Razz Ice', 'Strawberry Mint'],
+                descripcion: 'El Priv Bar Turbo 15K, desarrollado por SMOK, representa innovación y potencia en un solo dispositivo. Con una capacidad de hasta 15.000 caladas, incorpora el exclusivo modo Turbo, diseñado para intensificar el sabor y aumentar la producción de vapor al instante. Su pantalla HD integrada muestra información clave en tiempo real, permitiéndote controlar batería y rendimiento para que nunca te tome por sorpresa quedarte sin energía.'
+            },
+            'lostmary': { 
+                nombre: 'Lost Mary Mo 5K', precio: '$7.99', img: 'assets/lostmary.png', 
+                specs: ['⚡ 5000 puffs', '⚡ Diseño ergonómico', '⚡ Carga rápida'],
+                sabores: ['Gammi', 'Black Berryy Cherry', 'Kiwi Dragon Fruit'],
+                descripcion: 'El Lost Mary MO5000 combina elegancia y portabilidad en un diseño sofisticado. Su exclusivo acabado marmolado le da un estilo único, mientras que su boquilla ergonómica se adapta cómodamente para una experiencia suave y natural. Ideal para quienes buscan discreción sin renunciar a un sabor premium.'
+            }
+        };
 
         const params = new URLSearchParams(window.location.search);
-        const prodId = params.get('v');
-        const prod = catalogo[prodId];
+        const id = params.get('v');
+        const p = catalogo[id];
 
-        if(prod) {
-            document.getElementById('p-name').innerText = prod.nombre;
-            document.getElementById('p-price').innerText = prod.precio;
-            document.getElementById('p-img').src = prod.img;
+        if(p) {
+            document.getElementById('p-name').innerText = p.nombre;
+            document.getElementById('p-price').innerText = p.precio;
+            document.getElementById('p-img').src = p.img;
+            document.getElementById('p-description').innerText = p.descripcion;
             
-            const flavorsSelect = document.getElementById('p-flavors');
-            flavorsSelect.innerHTML = "";
-            prod.sabores.forEach(s => { 
-                let o = document.createElement('option'); 
-                o.value=s; o.innerText=s; 
-                flavorsSelect.appendChild(o); 
+            p.sabores.forEach(s => { 
+                let o = document.createElement('option'); o.value=s; o.innerText=s; 
+                document.getElementById('p-flavors').appendChild(o); 
             });
 
-            const specsList = document.getElementById('p-specs');
-            specsList.innerHTML = "";
-            prod.specs.forEach(s => { 
-                let l = document.createElement('li'); 
-                l.innerText=s; 
-                specsList.appendChild(l); 
+            p.specs.forEach(s => { 
+                let li = document.createElement('li'); li.innerText = s; 
+                document.getElementById('p-specs').appendChild(li); 
             });
         }
 
-        function pedirPorWsp() {
+        function toggleMenu() { document.getElementById('navLinks').classList.toggle('active'); }
+
+        function pedirWsp() {
             const sabor = document.getElementById('p-flavors').value;
-            const mensaje = encodeURIComponent(`Hola JF VAPES! Quiero el ${prod.nombre} en sabor ${sabor}`);
-            window.open(`https://wa.me/593969830010?text=${mensaje}`);
-        }
-
-        function toggleMenu() {
-            document.getElementById('navLinks').classList.toggle('active');
+            window.open(`https://wa.me/593969830010?text=¡Hola JF VAPES! 👋 Quiero el ${p.nombre} sabor ${sabor}. ¿Está disponible?`);
         }
     </script>
-    <script src="js/script.js"></script>
 </body>
 </html>

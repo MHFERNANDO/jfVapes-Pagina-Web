@@ -105,3 +105,22 @@ document.addEventListener('click', (e) => {
         navLinks.classList.remove('active');
     }
 });
+
+/*Preguntas frecuentes*/
+function toggleFAQ(element) {
+    const faqItem = element.parentElement;
+    
+    document.querySelectorAll('.faq-item').forEach(item => {
+        if(item !== faqItem) item.classList.remove('active');
+    });
+
+    faqItem.classList.toggle('active');
+}
+
+// Para que el scroll no sea un salto brusco sino un deslizamiento elegante
+document.querySelector('.btn-primary').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelector('#productos').scrollIntoView({
+        behavior: 'smooth'
+    });
+});
