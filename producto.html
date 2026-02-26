@@ -86,6 +86,41 @@
             .detail-grid { grid-template-columns: 1fr; }
             .detail-info { padding: 25px; }
         }
+        /* SECCIÓN DE RESEÑAS */
+        .reviews-section { padding: 60px 5%; max-width: 1200px; margin: auto; }
+        .add-review-box { background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 20px; margin-bottom: 40px; border: 1px solid var(--accent-neon); }
+        .review-form { display: flex; flex-direction: column; gap: 15px; }
+        .review-input, .review-textarea { width: 100%; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); padding: 12px; color: white; border-radius: 10px; }
+        .review-textarea { height: 100px; resize: none; }
+        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .review-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 15px; }
+        .stars { color: #ffcc00; }
+        .verified-badge { color: var(--accent-neon); font-size: 0.8rem; font-weight: bold; display: block; margin-top: 10px; }
+        /* SISTEMA DE ESTRELLAS VISUAL */
+        .rating-wrapper {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .rating-wrapper input { display: none; }
+
+        .rating-wrapper label {
+            font-size: 2rem;
+            color: #444; /* Color apagado */
+            cursor: pointer;
+            transition: color 0.2s ease-in-out;
+        }
+
+        /* Efecto Hover y Selección (de derecha a izquierda por el row-reverse) */
+        .rating-wrapper label:hover,
+        .rating-wrapper label:hover ~ label,
+        .rating-wrapper input:checked ~ label {
+            color: #ffcc00; /* Color Neón / Dorado */
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+        }
     </style>
 </head>
 <body>
@@ -144,6 +179,34 @@
         </div>
     </section>
 
+    <section class="reviews-section">
+        <h2 class="store-title" style="text-align: center;">Opiniones de la Comunidad</h2>
+
+        <div class="add-review-box">
+            <h3 style="color: var(--accent-neon); margin-top: 0;">Deja tu reseña</h3>
+            <form class="review-form" id="reviewForm">
+                <div style="display: flex; gap: 15px;">
+                    <input type="text" id="revName" placeholder="Tu nombre" class="review-input" required>
+                    <div class="rating-select">
+                        <span style="display:block; margin-bottom: 5px; color: #bbb;">Tu calificación:</span>
+                        <div class="rating-wrapper">
+                            <input type="radio" name="rating" id="star5" value="★★★★★"><label for="star5">★</label>
+                            <input type="radio" name="rating" id="star4" value="★★★★"><label for="star4">★</label>
+                            <input type="radio" name="rating" id="star3" value="★★★" checked><label for="star3">★</label>
+                            <input type="radio" name="rating" id="star2" value="★★"><label for="star2">★</label>
+                            <input type="radio" name="rating" id="star1" value="★"><label for="star1">★</label>
+                        </div>
+                    </div>
+                </div>
+                <textarea id="revText" placeholder="¿Qué te pareció este equipo?" class="review-textarea" required></textarea>
+                <button type="submit" class="btn-buy" style="width: auto; padding: 10px 30px;">PUBLICAR RESEÑA</button>
+            </form>
+        </div>
+
+        <div class="reviews-grid" id="reviewsContainer">
+            </div>
+    </section>
+
     <footer class="main-footer">
         <div class="footer-container">
             <div class="footer-col">
@@ -171,6 +234,7 @@
             <p>Copyright © 2026 JF Vapes. Todos los derechos reservados</p>
         </div>
     </footer>
+
 
     <script src="js/script.js"></script> <script>
         const catalogo = {
@@ -234,5 +298,106 @@
             window.open(`https://wa.me/593969830010?text=¡Hola JF VAPES! 👋 Quiero el ${p.nombre} sabor ${sabor}. ¿Está disponible?`);
         }
     </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+        import { 
+            getFirestore, 
+            collection, 
+            addDoc, 
+            query, 
+            where, 
+            orderBy, 
+            onSnapshot, 
+            serverTimestamp 
+        } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCVsWEgg91kYL13Se1g28tEX4h4fs2qRJY",
+            authDomain: "jf-vapes.firebaseapp.com",
+            projectId: "jf-vapes",
+            storageBucket: "jf-vapes.firebasestorage.app",
+            messagingSenderId: "108174764707",
+            appId: "1:108174764707:web:c2a2cdbe0aad3ed82d6d16"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentProductId = urlParams.get('v') || 'general';
+
+        // CARGAR RESEÑAS
+        const cargarResenasActualizadas = () => {
+            const contenedor = document.getElementById('reviewsContainer');
+            
+            try {
+                const q = query(
+                    collection(db, "resenas"), 
+                    where("productoId", "==", currentProductId), 
+                    orderBy("fecha", "desc")
+                );
+
+                onSnapshot(q, (snapshot) => {
+                    contenedor.innerHTML = '';
+                    if (snapshot.empty) {
+                        contenedor.innerHTML = '<p style="color:#666; text-align:center; width:100%;">No hay reseñas aún. ¡Sé el primero!</p>';
+                        return;
+                    }
+                    snapshot.forEach((doc) => {
+                        const res = doc.data();
+                        const div = document.createElement('div');
+                        div.className = 'review-card';
+                        div.innerHTML = `
+                            <div style="display:flex; justify-content:space-between;">
+                                <strong style="color:white;">${res.nombre}</strong>
+                                <span class="stars">${res.estrellas}</span>
+                            </div>
+                            <p style="color:#bbb; font-style:italic; margin:10px 0;">"${res.comentario}"</p>
+                            <span class="verified-badge">✓ CLIENTE JF VAPES</span>`;
+                        contenedor.appendChild(div);
+                    });
+                }, (error) => {
+                    console.error("Error en Firebase:", error);
+                    if (error.code === 'failed-precondition') {
+                        contenedor.innerHTML = '<p style="color:orange;">Configurando base de datos... Por favor espera un momento.</p>';
+                    }
+                });
+            } catch (e) {
+                console.error("Error inicializando consulta:", e);
+            }
+        };
+
+        // SUBIR RESEÑA
+        document.getElementById('reviewForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Capturamos el valor de la estrella seleccionada (del sistema visual)
+            const ratingInput = document.querySelector('input[name="rating"]:checked');
+            const estrellasValor = ratingInput ? ratingInput.value : "★★★"; // 3 por defecto si algo falla
+
+            try {
+                await addDoc(collection(db, "resenas"), {
+                    nombre: document.getElementById('revName').value,
+                    estrellas: estrellasValor, 
+                    comentario: document.getElementById('revText').value,
+                    productoId: currentProductId,
+                    fecha: serverTimestamp()
+                });
+
+                document.getElementById('reviewForm').reset();
+                // Resetear a 3 estrellas visualmente después de enviar
+                if(document.getElementById('star3')) document.getElementById('star3').checked = true;
+                
+                alert("¡Reseña publicada con éxito!");
+            } catch (e) { 
+                console.error(e);
+                alert("Error al publicar. Verifica la conexión."); 
+            }
+        });
+
+        cargarResenasActualizadas();
+    </script>
+    
 </body>
 </html>
