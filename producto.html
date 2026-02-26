@@ -21,7 +21,7 @@
             align-items: start;
         }
 
-        /* Reutilizamos tu estilo de img-container del inicio */
+        /* CONTENEDOR DE ZOOM ACTUALIZADO */
         .detail-image-box {
             background: #fff;
             border-radius: 20px;
@@ -30,12 +30,17 @@
             justify-content: center;
             align-items: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            overflow: hidden; /* Importante para que la imagen no se salga al agrandar */
+            cursor: zoom-in;
+            position: relative;
         }
 
         .detail-image-box img {
             max-width: 100%;
             max-height: 450px;
             object-fit: contain;
+            transition: transform 0.1s ease-out; /* Suavidad al mover el mouse */
+            transform-origin: center center;
         }
 
         .detail-info {
@@ -85,7 +90,9 @@
         @media (max-width: 850px) {
             .detail-grid { grid-template-columns: 1fr; }
             .detail-info { padding: 25px; }
+            .detail-image-box { cursor: default; } /* Desactivar zoom en móviles si prefieres */
         }
+        
         /* SECCIÓN DE RESEÑAS */
         .reviews-section { padding: 60px 5%; max-width: 1200px; margin: auto; }
         .add-review-box { background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 20px; margin-bottom: 40px; border: 1px solid var(--accent-neon); }
@@ -96,6 +103,7 @@
         .review-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 15px; }
         .stars { color: #ffcc00; }
         .verified-badge { color: var(--accent-neon); font-size: 0.8rem; font-weight: bold; display: block; margin-top: 10px; }
+        
         /* SISTEMA DE ESTRELLAS VISUAL */
         .rating-wrapper {
             display: flex;
@@ -109,16 +117,15 @@
 
         .rating-wrapper label {
             font-size: 2rem;
-            color: #444; /* Color apagado */
+            color: #444;
             cursor: pointer;
             transition: color 0.2s ease-in-out;
         }
 
-        /* Efecto Hover y Selección (de derecha a izquierda por el row-reverse) */
         .rating-wrapper label:hover,
         .rating-wrapper label:hover ~ label,
         .rating-wrapper input:checked ~ label {
-            color: #ffcc00; /* Color Neón / Dorado */
+            color: #ffcc00;
             text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
         }
     </style>
@@ -151,7 +158,7 @@
 
     <div class="detail-wrapper">
         <div class="detail-grid">
-            <div class="detail-image-box">
+            <div class="detail-image-box" id="zoomBox" onmousemove="zoomIn(event)" onmouseleave="zoomOut()">
                 <img id="p-img" src="" alt="Vape">
             </div>
 
@@ -203,8 +210,7 @@
             </form>
         </div>
 
-        <div class="reviews-grid" id="reviewsContainer">
-            </div>
+        <div class="reviews-grid" id="reviewsContainer"></div>
     </section>
 
     <footer class="main-footer">
@@ -236,7 +242,31 @@
     </footer>
 
 
-    <script src="js/script.js"></script> <script>
+    <script src="js/script.js"></script> 
+    
+    <script>
+        /* FUNCIONES DE ZOOM TIPO LUPA */
+        function zoomIn(event) {
+            const box = document.getElementById('zoomBox');
+            const img = document.getElementById('p-img');
+            
+            // Calculamos la posición del mouse respecto al cuadro
+            const rect = box.getBoundingClientRect();
+            const x = ((event.clientX - rect.left) / rect.width) * 100;
+            const y = ((event.clientY - rect.top) / rect.height) * 100;
+            
+            // Aplicamos el zoom y movemos el punto de origen al mouse
+            img.style.transformOrigin = `${x}% ${y}%`;
+            img.style.transform = "scale(2.5)"; // Puedes subir a 3 si quieres más zoom
+        }
+
+        function zoomOut() {
+            const img = document.getElementById('p-img');
+            img.style.transform = "scale(1)";
+            img.style.transformOrigin = "center center";
+        }
+
+        /* LÓGICA DEL CATÁLOGO */
         const catalogo = {
             'czar': { 
                 nombre: 'CZAR 9000', precio: '$9.99', img: 'assets/czar.png', 
@@ -341,7 +371,7 @@
                 onSnapshot(q, (snapshot) => {
                     contenedor.innerHTML = '';
                     if (snapshot.empty) {
-                        contenedor.innerHTML = '<p style="color:A39D9D; text-align:center; width:100%;">No hay reseñas aún. ¡Sé el primero!</p>';
+                        contenedor.innerHTML = '<p style="color:#A39D9D; text-align:center; width:100%;">No hay reseñas aún. ¡Sé el primero!</p>';
                         return;
                     }
                     snapshot.forEach((doc) => {
@@ -359,9 +389,6 @@
                     });
                 }, (error) => {
                     console.error("Error en Firebase:", error);
-                    if (error.code === 'failed-precondition') {
-                        contenedor.innerHTML = '<p style="color:orange;">Configurando base de datos... Por favor espera un momento.</p>';
-                    }
                 });
             } catch (e) {
                 console.error("Error inicializando consulta:", e);
@@ -371,10 +398,8 @@
         // SUBIR RESEÑA
         document.getElementById('reviewForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            
-            // Capturamos el valor de la estrella seleccionada (del sistema visual)
             const ratingInput = document.querySelector('input[name="rating"]:checked');
-            const estrellasValor = ratingInput ? ratingInput.value : "★★★"; // 3 por defecto si algo falla
+            const estrellasValor = ratingInput ? ratingInput.value : "★★★";
 
             try {
                 await addDoc(collection(db, "resenas"), {
@@ -386,13 +411,10 @@
                 });
 
                 document.getElementById('reviewForm').reset();
-                // Resetear a 3 estrellas visualmente después de enviar
                 if(document.getElementById('star3')) document.getElementById('star3').checked = true;
-                
                 alert("¡Reseña publicada con éxito!");
             } catch (e) { 
-                console.error(e);
-                alert("Error al publicar. Verifica la conexión."); 
+                alert("Error al publicar."); 
             }
         });
 
