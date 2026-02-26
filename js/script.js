@@ -69,21 +69,45 @@ document.addEventListener('click', (e) => {
     }
 });
 
-function filtrar(cat) {
-    // Actualizar botones
-    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-    // Corregido: añadir event como parámetro o usar event global
+function filtrar(categoria) {
+    const productos = document.querySelectorAll('.product-card');
+    
+    // Manejo de botones active
+    const botones = document.querySelectorAll('.filter-btn');
+    botones.forEach(btn => btn.classList.remove('active'));
     if(event) event.target.classList.add('active');
 
-    const cards = document.getElementsByClassName('product-card');
-    for (let card of cards) {
-        const name = card.getAttribute('data-name').toLowerCase();
-        if (cat === 'todos' || name.includes(cat)) {
-            card.style.display = "block";
-        } else {
-            card.style.display = "none";
+    productos.forEach(producto => {
+        // Obtenemos el texto del nombre del producto (ej: "Czar 9k")
+        // O si usas data-category, asegúrate de obtenerlo bien
+        const nombre = producto.innerText.toLowerCase(); 
+
+        if (categoria === 'todos') {
+            producto.style.display = 'block';
+        } 
+        else if (categoria === '9k-10k') {
+            // Buscamos específicamente el 9 o el 10, pero NO el 15 o 19
+            // La expresión \b significa "límite de palabra", así 9 no coincide con 19
+            const regex9k = /\b9k\b/;
+            const regex10k = /\b10k\b/;
+            
+            if (regex9k.test(nombre) || regex10k.test(nombre)) {
+                producto.style.display = 'block';
+            } else {
+                producto.style.display = 'none';
+            }
+        } 
+        else {
+            // Para 5k o 15k, buscamos el término exacto con límites de palabra (\b)
+            const regexExacta = new RegExp('\\b' + categoria + '\\b');
+            
+            if (regexExacta.test(nombre)) {
+                producto.style.display = 'block';
+            } else {
+                producto.style.display = 'none';
+            }
         }
-    }
+    });
 }
 function toggleMenu() {
     const navLinks = document.getElementById('navLinks');

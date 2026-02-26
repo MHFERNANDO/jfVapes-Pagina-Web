@@ -50,7 +50,7 @@
     <br><div class="category-filters" id="productos">
         <button class="filter-btn active" onclick="filtrar('todos')">Todos</button>
         <button class="filter-btn" onclick="filtrar('5k')">5K Puffs</button>
-        <button class="filter-btn" onclick="filtrar('10k')">9K - 10K Puffs</button>
+        <button class="filter-btn" onclick="filtrar('9k-10k')">9K - 10K Puffs</button>
         <button class="filter-btn" onclick="filtrar('15k')">Más Potentes (15K)</button>
     </div>
 
@@ -63,43 +63,7 @@
             </button>
 
             <main class="container" id="product-slider">
-                <div class="product-card" data-name="czar 9k" onclick="verDetalle('czar')">
-                    <div class="img-container"><img src="assets/czar.png" class="product-img"></div>
-                    <div class="product-info">
-                        <h2>CZAR 9K</h2>
-                        <p class="price">$9.99</p>
-                        <button class="btn-buy">Ver detalles</button>
-                    </div>
-                </div>
-
-                <div class="product-card" data-name="fume nicky jam 10k" onclick="verDetalle('fume')">
-                    <div class="img-container"><img src="assets/FumeNickyJam.png" class="product-img"></div>
-                    <div class="product-info">
-                        <h2>FUME Nicky Jam 10K</h2>
-                        <p class="price">$9.99</p>
-                        <button class="btn-buy">Ver detalles</button>
-                    </div>
-                </div>
-
-                <div class="product-card" data-name="snoopysmoke 15k" onclick="verDetalle('snoopy')">
-                    <div class="img-container"><img src="assets/SnoopySmoke.png" class="product-img"></div>
-                    <div class="product-info">
-                        <h2>Snoopysmoke 15K</h2>
-                        <p class="price">$11.99</p>
-                        <button class="btn-buy">Ver detalles</button>
-                    </div>
-                </div>
-
-                <div class="product-card" data-name="priv bar 15k" onclick="verDetalle('privbar')">
-                    <div class="img-container"><img src="assets/privbar.png" class="product-img"></div>
-                    <div class="product-info">
-                        <h2>Priv Bar 15K</h2>
-                        <p class="price">$11.99</p>
-                        <button class="btn-buy">Ver detalles</button>
-                    </div>
-                </div>
-
-                <div class="product-card" data-name="Lost Mary 5k" onclick="verDetalle('lostmary')">
+                <div class="product-card" data-category="5k" onclick="verDetalle('lostmary')">
                     <div class="img-container"><img src="assets/lostmary.png" class="product-img"></div>
                     <div class="product-info">
                         <h2>Lost Mary Mo 5K</h2>
@@ -108,6 +72,41 @@
                     </div>
                 </div>
 
+                <div class="product-card" data-category="9k" onclick="verDetalle('czar')">
+                    <div class="img-container"><img src="assets/czar.png" class="product-img"></div>
+                    <div class="product-info">
+                        <h2>CZAR 9K</h2>
+                        <p class="price">$9.99</p>
+                        <button class="btn-buy">Ver detalles</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="10k" onclick="verDetalle('fume')">
+                    <div class="img-container"><img src="assets/FumeNickyJam.png" class="product-img"></div>
+                    <div class="product-info">
+                        <h2>FUME Nicky Jam 10K</h2>
+                        <p class="price">$9.99</p>
+                        <button class="btn-buy">Ver detalles</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="15k" onclick="verDetalle('snoopy')">
+                    <div class="img-container"><img src="assets/SnoopySmoke.png" class="product-img"></div>
+                    <div class="product-info">
+                        <h2>Snoopysmoke 15K</h2>
+                        <p class="price">$11.99</p>
+                        <button class="btn-buy">Ver detalles</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="15k" onclick="verDetalle('privbar')">
+                    <div class="img-container"><img src="assets/privbar.png" class="product-img"></div>
+                    <div class="product-info">
+                        <h2>Priv Bar 15K</h2>
+                        <p class="price">$11.99</p>
+                        <button class="btn-buy">Ver detalles</button>
+                    </div>
+                </div>
             </main>
 
             <button class="nav-btn next" onclick="moveSlider(1)">
