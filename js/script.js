@@ -148,3 +148,43 @@ document.querySelector('.btn-primary').addEventListener('click', function(e) {
         behavior: 'smooth'
     });
 });
+
+/**
+ * OPTIMIZACIÓN SEO Y ESTRUCTURA PARA JF VAPES
+ * Este bloque ayuda a Google a identificar el nombre de tu marca
+ */
+
+(function() {
+    // 1. Inyectar JSON-LD para que Google reconozca el nombre "JF Vapes"
+    const schemaData = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "JF Vapes",
+        "alternateName": "JF Vapes Cuenca",
+        "url": window.location.origin,
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": window.location.origin + "/index.html?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    };
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(schemaData);
+    document.head.appendChild(script);
+
+    // 2. Optimización de títulos dinámica
+    // Si estás en la página de un producto, mejora el título para Google
+    const urlParams = new URLSearchParams(window.location.search);
+    const productID = urlParams.get('v');
+    
+    if (productID) {
+        // Esto cambia el título de la pestaña a algo como: "CZAR 9000 | JF Vapes Cuenca"
+        document.title = `${productID.toUpperCase()} | JF Vapes Cuenca`;
+    } else {
+        document.title = "JF Vapes | Los mejores equipos y sabores en Cuenca";
+    }
+
+    console.log("🚀 SEO de JF Vapes activado y optimizado para Cuenca.");
+})();
