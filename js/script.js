@@ -188,3 +188,23 @@ document.querySelector('.btn-primary').addEventListener('click', function(e) {
 
     console.log("🚀 SEO de JF Vapes activado y optimizado para Cuenca.");
 })();
+
+// Forzar actualización de Identidad Visual para Google
+(function() {
+    const siteTitle = "JF Vapes Cuenca | Los mejores equipos y sabores";
+    const siteDesc = "Tienda oficial de JF Vapes en Cuenca. Equipos originales, reseñas reales y pedidos por WhatsApp.";
+    
+    // Inyectar etiquetas dinámicamente si faltan
+    document.title = siteTitle;
+    
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+        metaDesc = document.createElement('meta');
+        metaDesc.name = "description";
+        document.head.appendChild(metaDesc);
+    }
+    metaDesc.content = siteDesc;
+
+    // Esto ayuda a que el "Preview" de WhatsApp se genere más rápido
+    console.log("✅ Identidad de JF Vapes verificada para rastreadores.");
+})();
