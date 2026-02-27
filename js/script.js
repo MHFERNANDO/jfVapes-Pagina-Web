@@ -208,3 +208,19 @@ document.querySelector('.btn-primary').addEventListener('click', function(e) {
     // Esto ayuda a que el "Preview" de WhatsApp se genere más rápido
     console.log("✅ Identidad de JF Vapes verificada para rastreadores.");
 })();
+
+// Identidad de marca para buscadores
+(function() {
+    const brandSEO = {
+        "@context": "https://schema.org",
+        "@type": "Brand",
+        "name": "JF Vapes",
+        "url": "https://jf-vapes-pagina-web-w6bo.vercel.app/",
+        "logo": "https://jf-vapes-pagina-web-w6bo.vercel.app/assets/logo.png",
+        "location": "Cuenca, Ecuador"
+    };
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(brandSEO);
+    document.head.appendChild(script);
+})();
